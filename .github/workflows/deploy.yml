@@ -17,13 +17,13 @@ jobs:
           dotnet-version: '8.0'
 
       - name: Restore dependencies
-        run: dotnet restore DemoCRUD_Backend/ProductAPI/ProductAPI.csproj
+        run: dotnet restore    ProductAPI/ProductAPI.csproj
 
       - name: Build
-        run: dotnet build DemoCRUD_Backend/ProductAPI/ProductAPI.csproj --configuration Release --no-restore
+        run: dotnet build ProductAPI/ProductAPI.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish DemoCRUD_Backend/ProductAPI/ProductAPI.csproj --configuration Release --output ./publish --runtime win-x86
+        run: dotnet publish ProductAPI/ProductAPI.csproj --configuration Release --output ./publish --runtime win-x86
 
       - name: Deploy to MonsterASP.NET
         uses: rasmusbuchholdt/simply-web-deploy@2.1.0
