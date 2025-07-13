@@ -1,0 +1,36 @@
+name: Build and Deploy to MonsterASP.net
+
+on:
+  push:
+    branches:
+      - main  # or your deploy branch
+
+jobs:
+  build_and_deploy:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0'  # or appropriate version
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish YourProjectName.csproj --configuration Release --output ./publish --runtime win-x86
+
+      - name: Deploy via WebDeploy
+        uses: rasmusbuchholdt/simply-web-deploy@2.1.0
+        with:
+          website-name: ${{ secrets.MSDEPLOY_SITE_NAME }}
+          server-computer-name: ${{ secrets.MSDEPLOY_SERVER_URL }}
+          server-username: ${{ secrets.MSDEPLOY_USER }}
+          server-password: ${{ secrets.MSDEPLOY_PASSWORD }}
+          source-path: ./publish
