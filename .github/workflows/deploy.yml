@@ -17,7 +17,7 @@ jobs:
           dotnet-version: '8.0'
 
       - name: Restore dependencies
-        run: dotnet restore backend/ProductAPI/ProductAPI.csproj
+        run: dotnet restore DemoCRUD_Backend/ProductAPI/ProductAPI.csproj
 
       - name: Build
         run: dotnet build DemoCRUD_Backend/ProductAPI/ProductAPI.csproj --configuration Release --no-restore
